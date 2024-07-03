@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/layout/layout::dynamic(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main>
+    <div class="container">
+        <h1 class="text-center text-uppercase">Note</h1>
+        <form class="row" th:object="${vocabulary}" th:action="@{/admin/save}" method="post">
+            <div class="col-6 mb-3">
+                <label for="english" class="form-label">English</label>
+                <input type="text" class="form-control" id="english" placeholder="English" th:field="*{english}">
+                <div class="text-danger" th:if="${#fields.hasErrors()}" th:errors="*{english}">Error</div>
+            </div>
+            <div class="col-6 mb-3">
+                <label for="vietnamese" class="form-label">Vietnamese</label>
+                <input type="text" class="form-control" id="vietnamese" placeholder="Vietnamese"
+                       th:field="*{vietnamese}">
+                <div class="text-danger" th:if="${#fields.hasErrors()}" th:errors="*{vietnamese}">Error</div>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" rows="3" th:field="*{description}"></textarea>
+            </div>
+            <div class="col">
+                <button class="btn btn-success">Submit</button>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/layout/layout::dynamic(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main>
+    <div class="container-fluid bg-dark mt-5">
+        <h1 class="text-center text-white">List Vocabulary</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="bg-transparent text-white" scope="col">No</th>
+                <th class="bg-transparent text-white" scope="col">English</th>
+                <th class="bg-transparent text-white" scope="col">Vietnamese</th>
+                <th class="bg-transparent text-white" scope="col">Created by</th>
+                <th class="bg-transparent text-white" scope="col">Description</th>
+                <th class="bg-transparent text-white text-center" scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="v, rowStat : ${listVocabulary}">
+                <th class="bg-transparent text-white" scope="row">[[${rowStat.index + 1}]]</th>
+                <td class="bg-transparent text-white">[[${v.english}]]</td>
+                <td class="bg-transparent text-white">[[${v.vietnamese}]]</td>
+                <td class="bg-transparent text-white">[[${v.user.username}]]</td>
+                <td class="bg-transparent text-white">[[${v.description}]]</td>
+                <td class="bg-transparent text-center"><a th:href="@{'/admin/delete/' + ${v.id}}" th:classappend="${!#authorization.expression('hasAuthority(''ADMIN'')')} ? 'bi bi-trash-fill text-danger nav-link disabled' : 'bi bi-trash-fill text-danger nav-link'"></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>
