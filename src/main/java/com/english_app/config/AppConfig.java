@@ -1,6 +1,7 @@
 package com.english_app.config;
 
 import com.english_app.enums.RoleEnum;
+import com.english_app.service.CustomAuthenticationFailureHandler;
 import com.english_app.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -41,9 +42,13 @@ public class AppConfig {
                 )
                 .rememberMe(rememberMe -> rememberMe
                         .key("AbcdEfghIjklmNopQrsTuvXyz_0123456789")
-                        .tokenValiditySeconds(10000)
+                        .tokenValiditySeconds(60)
                 )
-                .formLogin(form -> form.loginPage("/login").successHandler(this.authenticationSuccessHandler()))
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .successHandler(this.authenticationSuccessHandler())
+                        .failureHandler(new CustomAuthenticationFailureHandler())
+                )
                 .userDetailsService(this.userDetailService)
                 .exceptionHandling(ex -> ex.accessDeniedPage("/"));
         http.oauth2Login(oauth2 -> oauth2
@@ -51,7 +56,7 @@ public class AppConfig {
                 .failureUrl("/login?error")
                 .defaultSuccessUrl("/oauth2/login/success")
                 .authorizationEndpoint(authorization -> authorization
-                        .baseUri("/oauth2/authorize") // configure authorization endpoint
+                        .baseUri("/oauth2/authorize")
                 )
         );
         return http.build();
