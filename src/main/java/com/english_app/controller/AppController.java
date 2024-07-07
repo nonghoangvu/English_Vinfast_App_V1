@@ -14,7 +14,7 @@ public class AppController {
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("message", "Role Guest");
+//        model.addAttribute("message", "Role Guest");
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        System.out.println(authentication);
         return "guest/home";

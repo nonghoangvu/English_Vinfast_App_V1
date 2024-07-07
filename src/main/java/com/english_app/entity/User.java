@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
